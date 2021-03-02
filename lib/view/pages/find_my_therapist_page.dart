@@ -56,97 +56,104 @@ class _FindMyTherapistPageState extends State<FindMyTherapistPage> {
         ),
       ),
       body: SingleChildScrollView(
+          physics: ClampingScrollPhysics(),
           child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16, left: 16, top: 24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Find my therapist',
-                  style: textTheme.headline5.copyWith(
-                      fontWeight: FontWeight.w600, color: Palette.blueZodiac),
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 16, left: 16, top: 24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Find my therapist',
+                      style: textTheme.headline5.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: Palette.blueZodiac),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      'Choose the needed parameters and find your therapist.',
+                      style:
+                          textTheme.subtitle1.copyWith(color: Palette.eastBay),
+                    ),
+                    SizedBox(height: 32),
+                    Text(
+                      'Do you know what type of therapist \ndo you need?',
+                      style: textTheme.subtitle1.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: Palette.blueZodiac),
+                    ),
+                    SizedBox(height: 10),
+                    SizedBox(
+                      width: double.maxFinite,
+                      child: SlidingSegmentedControl(
+                          children: myTabs,
+                          cornerRadius: 28.0 * 2,
+                          groupValue: segmentedControlGroupValue,
+                          onValueChanged: (val) => setState(() {
+                                segmentedControlGroupValue = val;
+                              })),
+                    ),
+                    SizedBox(height: 25),
+                    Text(
+                      'What does the problem most relate to?',
+                      style: textTheme.subtitle1.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: Palette.blueZodiac),
+                    ),
+                  ],
                 ),
-                SizedBox(height: 8),
-                Text(
-                  'Choose the needed parameters and find your therapist.',
-                  style: textTheme.subtitle1.copyWith(color: Palette.eastBay),
-                ),
-                SizedBox(height: 32),
-                Text(
-                  'Do you know what type of therapist \ndo you need?',
+              ),
+              buildMostRelatedProblems(textTheme),
+              SizedBox(height: 25),
+              Padding(
+                padding: const EdgeInsets.only(left: 16, bottom: 8),
+                child: Text(
+                  'Choose issues you want to discuss:',
                   style: textTheme.subtitle1.copyWith(
                       fontWeight: FontWeight.w600, color: Palette.blueZodiac),
                 ),
-                SizedBox(height: 10),
-                SizedBox(
-                  width: double.maxFinite,
-                  child: SlidingSegmentedControl(
-                      children: myTabs,
-                      cornerRadius: 28.0 * 2,
-                      groupValue: segmentedControlGroupValue,
-                      onValueChanged: (val) => setState(() {
-                            segmentedControlGroupValue = val;
-                          })),
-                ),
-                SizedBox(height: 25),
-                Text(
-                  'What does the problem most relate to?',
+              ),
+              buildIssuesToDiscuss(textTheme),
+              SizedBox(height: 25),
+              Padding(
+                padding: const EdgeInsets.only(left: 16, bottom: 8),
+                child: Text(
+                  'Who is the appointment for?',
                   style: textTheme.subtitle1.copyWith(
                       fontWeight: FontWeight.w600, color: Palette.blueZodiac),
                 ),
-              ],
-            ),
-          ),
-          buildMostRelatedProblems(textTheme),
-          SizedBox(height: 25),
-          Padding(
-            padding: const EdgeInsets.only(left: 16, bottom: 8),
-            child: Text(
-              'Choose issues you want to discuss:',
-              style: textTheme.subtitle1.copyWith(
-                  fontWeight: FontWeight.w600, color: Palette.blueZodiac),
-            ),
-          ),
-          buildIssuesToDiscuss(textTheme),
-          SizedBox(height: 25),
-          Padding(
-            padding: const EdgeInsets.only(left: 16, bottom: 8),
-            child: Text(
-              'Who is the appointment for?',
-              style: textTheme.subtitle1.copyWith(
-                  fontWeight: FontWeight.w600, color: Palette.blueZodiac),
-            ),
-          ),
-          buildAppointments(textTheme),
-          if (appointments.last == chosenAppointment)
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 16, bottom: 8, top: 25),
-                  child: Text(
-                    'Are your parents highly empathetic, good at communicating, talking about and understanding your emotions?',
-                    style: textTheme.subtitle1.copyWith(
-                        fontWeight: FontWeight.w600, color: Palette.blueZodiac),
-                  ),
+              ),
+              buildAppointments(textTheme),
+              if (appointments.last == chosenAppointment)
+                Column(
+                  children: [
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(left: 16, bottom: 8, top: 25),
+                      child: Text(
+                        'Are your parents highly empathetic, good at communicating, talking about and understanding your emotions?',
+                        style: textTheme.subtitle1.copyWith(
+                            fontWeight: FontWeight.w600,
+                            color: Palette.blueZodiac),
+                      ),
+                    ),
+                    buildQuestionsToParents(textTheme)
+                  ],
                 ),
-                buildQuestionsToParents(textTheme)
-              ],
-            ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(32, 48, 32, 32),
-            child: CustomButton(
-              label: 'Next step',
-              onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => RecomendedTherapyPage()));
-              },
-            ),
-          )
-        ],
-      )),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(32, 48, 32, 32),
+                child: CustomButton(
+                  label: 'Next step',
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (_) => RecomendedTherapyPage()));
+                  },
+                ),
+              )
+            ],
+          )),
     );
   }
 
