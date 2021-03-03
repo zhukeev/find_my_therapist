@@ -37,7 +37,7 @@ class FindMyTherapistPage extends StatelessWidget {
         return provider.isRequesting
             ? Center(child: CircularProgressIndicator())
             : SingleChildScrollView(
-                physics: ClampingScrollPhysics(),
+                physics: BouncingScrollPhysics(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
