@@ -23,8 +23,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  cached_network_image: ^2.5.0
   cupertino_icons: ^1.0.0
+  dio: ^3.0.10
   google_fonts: any
+  provider: ^4.3.3
 
 dev_dependencies:
   flutter_test:

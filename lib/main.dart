@@ -1,14 +1,19 @@
-import 'package:find_my_therapist/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import 'view/pages/find_my_therapist_page.dart';
+import 'view/pages/recomended_therapy_page.dart';
+import 'viewmodel/find_my_therapist_provider.dart';
 
 void main() async {
   SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(statusBarColor: Colors.white));
-  runApp(MyApp());
+
+  runApp(MultiProvider(providers: [
+    ListenableProvider(create: (_) => FindMyTherapistProvider()..fetchAllData())
+  ], child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
